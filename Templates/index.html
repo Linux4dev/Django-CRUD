@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django CRUD</title>
+</head>
+<body>
+    <h1>A simple 'CRUD' with Django</h1>
+    <h2>My book list</h2>
+    <div>
+        <hr />
+        <form method="POST">
+            {% csrf_token %}
+            
+            {{ BookForm.name }}
+            {{ BookForm.author }}
+
+            <button type="submit">Create</button>
+
+            {% if BookForm.name.erros %}
+                <span>Este campo é obrigatorio</span>
+            {% endif %}
+
+            {% if BookForm.author.erros %}
+                <span>Este campo é obrigatorio</span>
+            {% endif %}
+
+        </form>
+        <hr />
+    </div> 
+    <div>
+        {% for n in Books %}
+            <hr/>
+            {{ n.name }}
+            <a href="{% url 'deleteBook' n.id %}"><button>Delete</button></a>
+            <a href="{% url 'readBook' n.id %}"><button>Read</button></a>
+            <hr/>
+        {% endfor %}
+    </div>
+</body>
+</html>
